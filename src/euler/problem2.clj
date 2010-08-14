@@ -15,3 +15,7 @@ Find the sum of all the even-valued terms in the sequence which do not exceed fo
 (defn problem2 [max]
   (reduce + (filter even? (take-while #(<= % max) fib))))
 
+(defn problem2-no-evens
+  "Every 3rd number of the Fibonacci sequence is even"
+  [max]
+  (reduce + (take-nth 3 (take-while #(<= % max) fib))))
