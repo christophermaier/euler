@@ -15,7 +15,20 @@ Find the sum of all the even-valued terms in the sequence which do not exceed fo
 (defn problem2 [max]
   (reduce + (filter even? (take-while #(<= % max) fib))))
 
-(defn problem2-no-evens
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn problem2-only-evens
   "Every 3rd number of the Fibonacci sequence is even"
   [max]
   (reduce + (take-nth 3 (take-while #(<= % max) fib))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def
+ ^{:doc "Even Fibonacci numbers can also be represented by this recursion: E(n)=4*E(n-1)+E(n-2)"}
+ even-fibs (lazy-cat [2 8] (map #(+ (* 4 %2) %1)
+                                    even-fibs (rest even-fibs))))
+
+(defn problem2-only-evens-by-sequence
+  [max]
+  (reduce + (take-while #(<= % max) even-fibs)))
